@@ -1,5 +1,3 @@
-
-
 <section class="detail-section">
   <div class="detail-card">
     <img src="<%= cake.imageUrl %>" alt="<%= cake.title %>">
@@ -8,8 +6,10 @@
       <p class="price"><%= cake.price.toLocaleString() %>đ</p>
       <p><%= cake.description %></p>
 
-      <h4>Recipe</h4>
-      <pre class="recipe"><%= cake.recipe %></pre>
+      <% if (cake.recipe && cake.recipe.trim().length > 0) { %>
+        <h4>Recipe</h4>
+        <pre class="recipe"><%= cake.recipe %></pre>
+      <% } %>
 
       <div class="detail-actions">
         <button class="add-cart" data-cakeid="<%= cake.id %>">Add to Cart</button>
