@@ -1,4 +1,7 @@
 const { Cake } = require('./models');
+const user = await User.findOne({ where: { username: 'mai' } });
+user.isAdmin = true;
+await user.save();
 
 module.exports = async function seed() {
 
