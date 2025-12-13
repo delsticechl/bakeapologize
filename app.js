@@ -16,7 +16,7 @@ app.set('layout', 'layouts/main');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/uploads', express.static('uploads'));
 // Session & flash
 app.use(session({
   secret: 'bakeology-secret-123',
@@ -33,6 +33,17 @@ app.use((req, res, next) => {
   next();
 });
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => {
+    const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, unique + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 // ---------- ROUTES ----------
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.user || null;
@@ -100,9 +111,26 @@ app.post('/register', async (req, res) => {
     }
 
     const hash = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, username, password: hash });
 
-    req.session.user = { id: user.id, username: user.username, name: user.name };
+    // ✅ Create the user
+    const user = await User.create({
+      name,
+      username,
+      password: hash,
+      isAdmin: false   // optional, but good practice
+    });
+
+    // ✅ Reload to ensure all fields are available
+    await user.reload({ attributes: ['id', 'username', 'name', 'isAdmin'] });
+
+    // ✅ Save user into session
+    req.session.user = {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      isAdmin: user.isAdmin
+    };
+
     req.flash('success', 'Registered successfully');
     res.redirect('/');
   } catch (e) {
@@ -111,25 +139,34 @@ app.post('/register', async (req, res) => {
     res.redirect('/register');
   }
 });
-
 // Login
-app.get('/login', (req, res) => res.render('login'));
-
+// ✅ Login page
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
-  const user = await User.findOne({ where: { username } });
+  const user = await User.findOne({
+    where: { username },
+    attributes: ['id', 'username', 'name', 'password', 'isAdmin']
+  });
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
     req.flash('error', 'Invalid username or password');
     return res.redirect('/login');
   }
 
-  req.session.user = { id: user.id, username: user.username, name: user.name };
+  req.session.user = { 
+    id: user.id, 
+    username: user.username, 
+    name: user.name,
+    isAdmin: user.isAdmin,
+  };
+
   req.flash('success', 'Logged in');
   res.redirect('/');
 });
-
 // Logout
 app.post('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/'));
@@ -321,11 +358,6 @@ function requireAdmin(req, res, next) {
 app.get('/admin', requireAdmin, (req, res) => {
   res.render('admin/dashboard');
 });
-// ADMIN - MANAGE CAKES
-app.get('/admin/cakes', requireAdmin, async (req, res) => {
-  const cakes = await Cake.findAll();
-  res.render('admin/cakes', { cakes });
-});
 // ADMIN - MANAGE ORDERS
 app.get('/admin/orders', requireAdmin, async (req, res) => {
   const orders = await Order.findAll({
@@ -335,44 +367,119 @@ app.get('/admin/orders', requireAdmin, async (req, res) => {
 
   res.render('admin/orders', { orders });
 });
-// ADMIN - LOG IN
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  const user = await User.findOne({ where: { username } });
-
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    req.flash('error', 'Invalid username or password');
-    return res.redirect('/login');
-  }
-
-  req.session.user = { 
-    id: user.id, 
-    username: user.username, 
-    name: user.name,
-    isAdmin: user.isAdmin   // ✅ IMPORTANT
-  };
-
-  req.flash('success', 'Logged in');
-  res.redirect('/');
-});
 // PROMOTE USER TO ADMIN (FOR TESTING PURPOSES)
-app.post('/admin/promote/:id', requireAdmin, async (req, res) => {
+// ✅ ADMIN — Promote User to Admin
+app.post('/admin/users/:id/promote', requireAdmin, async (req, res) => {
   const user = await User.findByPk(req.params.id);
 
-  if (!user) {
-    req.flash('error', 'User not found');
-    return res.redirect('/admin/users');
-  }
-
-  user.isAdmin = true;
-  await user.save();
+  await user.update({ isAdmin: true });   // ✅ FIXED
 
   req.flash('success', `${user.username} is now an admin`);
   res.redirect('/admin/users');
-});
-// ADMIN - MANAGE USERS
+});// ADMIN - MANAGE USERS
 app.get('/admin/users', requireAdmin, async (req, res) => {
   const users = await User.findAll();
   res.render('admin/users', { users });
+});
+// Debug
+app.get('/debug-session', (req, res) => {
+  res.json(req.session.user);
+});
+app.get('/debug-users', async (req, res) => {
+  const users = await User.findAll();
+  res.json(users);
+});
+// ✅ ADMIN — Manage Cakes
+app.get('/admin/cakes', requireAdmin, async (req, res) => {
+  const cakes = await Cake.findAll();
+  res.render('admin/cakes', { cakes });
+});
+
+
+// ✅ ADMIN — Show Add Cake Form
+app.get('/admin/cakes/new', requireAdmin, (req, res) => {
+  res.render('admin/cakes-new');
+});
+
+
+// ✅ ADMIN — Create Cake
+app.post('/admin/cakes', requireAdmin, upload.single('image'), async (req, res) => {
+  const { title, description, price, category, recipe } = req.body;
+
+  await Cake.create({
+    title,
+    description,
+    price,
+    category,
+    recipe,
+    imageUrl: req.file ? '/uploads/' + req.file.filename : null
+  });
+
+  req.flash('success', 'Cake added successfully');
+  res.redirect('/admin/cakes');
+});
+
+
+// ✅ ADMIN — Show Edit Cake Form
+app.get('/admin/cakes/:id/edit', requireAdmin, async (req, res) => {
+  const cake = await Cake.findByPk(req.params.id);
+  res.render('admin/cakes-edit', { cake });
+});
+
+
+// ✅ ADMIN — Update Cake
+app.post('/admin/cakes/:id', requireAdmin, upload.single('image'), async (req, res) => {
+  const { title, description, price, category, recipe } = req.body;
+
+  const cake = await Cake.findByPk(req.params.id);
+
+  await cake.update({
+    title,
+    description,
+    price,
+    category,
+    recipe,
+    imageUrl: req.file ? '/uploads/' + req.file.filename : cake.imageUrl
+  });
+
+  req.flash('success', 'Cake updated successfully');
+  res.redirect('/admin/cakes');
+});
+
+
+// ✅ ADMIN — Show Recipe Page
+app.get('/admin/cakes/:id/recipe', requireAdmin, async (req, res) => {
+  const cake = await Cake.findByPk(req.params.id);
+  res.render('admin/recipe-manage', { cake });
+});
+
+
+// ✅ ADMIN — Update Recipe
+app.post('/admin/cakes/:id/recipe', requireAdmin, async (req, res) => {
+  const { recipe } = req.body;
+  const cake = await Cake.findByPk(req.params.id);
+
+  await cake.update({ recipe });
+
+  req.flash('success', 'Recipe updated');
+  res.redirect(`/admin/cakes/${req.params.id}/recipe`);
+});
+// ✅ ADMIN — View Single Order
+app.get('/admin/orders/:id', requireAdmin, async (req, res) => {
+  const order = await Order.findByPk(req.params.id, {
+    include: [
+      { model: OrderItem, include: [Cake] },
+      { model: User }
+    ]
+  });
+
+  res.render('admin/order-detail', { order });
+});
+// ✅ ADMIN — Delete Cake
+app.post('/admin/cakes/:id/delete', requireAdmin, async (req, res) => {
+  const cake = await Cake.findByPk(req.params.id);
+  await cake.destroy();
+
+  req.flash('success', 'Cake deleted successfully');
+  res.redirect('/admin/cakes');
 });
