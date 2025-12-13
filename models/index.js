@@ -12,6 +12,7 @@ const User = require('./user')(sequelize, DataTypes);
 const Cake = require('./cake')(sequelize, DataTypes);
 const Cart = require('./cart')(sequelize, DataTypes);
 const CartItem = require('./cartItem')(sequelize, DataTypes);
+const Recipe = require('./recipe')(sequelize, DataTypes);   // ✅ NEW
 
 // ✅ NEW: Load Order + OrderItem
 const Order = require('./order')(sequelize, DataTypes);
@@ -45,6 +46,10 @@ OrderItem.belongsTo(Order);
 Cake.hasMany(OrderItem);
 OrderItem.belongsTo(Cake);
 
+// ✅ NEW: Cake ↔ Recipe (1:1)
+Cake.hasOne(Recipe, { onDelete: 'CASCADE' });
+Recipe.belongsTo(Cake);
+
 // Export all models
 module.exports = {
   sequelize,
@@ -53,6 +58,7 @@ module.exports = {
   Cake,
   Cart,
   CartItem,
+  Recipe,      // ✅ MUST EXPORT
   Order,
   OrderItem
 };
