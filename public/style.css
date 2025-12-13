@@ -1031,3 +1031,371 @@ body.dark .auth-form input {
     padding: 6px 12px;
     border-radius: 8px;
   }
+  /* --- Admin Page Layout --- */
+.admin-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* --- Admin Cards (Add/Edit Cake) --- */
+.admin-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.admin-card h1,
+.admin-card h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* --- Form Inputs --- */
+.admin-card input,
+.admin-card textarea,
+.admin-card select {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 100%;
+}
+
+.admin-card input:focus,
+.admin-card textarea:focus {
+  border-color: #ff7b7b;
+  outline: none;
+  box-shadow: 0 0 4px rgba(255, 123, 123, 0.4);
+}
+
+/* --- Buttons --- */
+.btn-primary,
+.btn-success,
+.btn-warning,
+.btn-danger {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary { background: #ff7b7b; color: #fff; }
+.btn-success { background: #4caf50; color: #fff; }
+.btn-warning { background: #f4a261; color: #fff; }
+.btn-danger  { background: #e63946; color: #fff; }
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-warning:hover,
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* --- Admin Tables --- */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+  background: #fff4f4;
+  font-weight: 600;
+}
+
+.admin-table tr:hover {
+  background: #fff9f9;
+}
+
+/* --- Order Detail Card --- */
+.order-detail-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+}
+
+/* --- Footer Sticks to Bottom --- */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+/* --- Centered Form Wrapper --- */
+.center-form {
+  display: flex;
+  justify-content: center;
+}
+
+/* --- Wider Card for Edit Cake --- */
+.wide-card {
+  width: 700px;
+  max-width: 90%;
+}
+
+/* --- Order Detail Card Styling --- */
+.order-detail-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+}
+
+.order-detail-card h1,
+.order-detail-card h3 {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.order-detail-card p {
+  margin: 4px 0;
+}
+
+/* --- Admin Table Improvements --- */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+  background: #fff4f4;
+  font-weight: 600;
+}
+
+.admin-table tr:hover {
+  background: #fff9f9;
+}
+
+/* --- Footer stays at bottom --- */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+/* --- Manage Orders Table Alignment --- */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed; /* makes columns even */
+}
+
+.orders-table th,
+.orders-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 14px 10px;
+}
+
+.orders-table th {
+  background: #fff4f4;
+  font-weight: 600;
+}
+
+.orders-table td {
+  background: #ffffff;
+}
+
+.orders-table tr:hover td {
+  background: #fff9f9;
+}
+
+/* Make columns evenly spaced */
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2) {
+  width: 30%;
+}
+
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3) {
+  width: 20%;
+}
+
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+  width: 20%;
+}
+
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+  width: 20%;
+}
+
+/* Center the whole admin page */
+.admin-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-cake-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-info p {
+  margin: 4px 0;
+}
+
+.order-total {
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+/* Align Manage Cakes table */
+.cakes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed;
+}
+
+.cakes-table th,
+.cakes-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 14px 10px;
+}
+
+.cakes-table th {
+  background: #fff4f4;
+  font-weight: 600;
+}
+
+.cakes-table tr:hover td {
+  background: #fff9f9;
+}
+
+/* Even column widths */
+.cakes-table th:nth-child(1),
+.cakes-table td:nth-child(1) { width: 15%; }
+
+.cakes-table th:nth-child(2),
+.cakes-table td:nth-child(2) { width: 25%; }
+
+.cakes-table th:nth-child(3),
+.cakes-table td:nth-child(3) { width: 15%; }
+
+.cakes-table th:nth-child(4),
+.cakes-table td:nth-child(4) { width: 15%; }
+
+.cakes-table th:nth-child(5),
+.cakes-table td:nth-child(5) { width: 30%; }
+
+/* Header alignment */
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-cake-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+/* Align Manage Users table */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed;
+}
+
+.users-table th,
+.users-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 14px 10px;
+}
+
+.users-table th {
+  background: #fff4f4;
+  font-weight: 600;
+}
+
+.users-table tr:hover td {
+  background: #fff9f9;
+}
+
+/* Even column widths */
+.users-table th:nth-child(1),
+.users-table td:nth-child(1) { width: 10%; }
+
+.users-table th:nth-child(2),
+.users-table td:nth-child(2) { width: 30%; }
+
+.users-table th:nth-child(3),
+.users-table td:nth-child(3) { width: 25%; }
+
+.users-table th:nth-child(4),
+.users-table td:nth-child(4) { width: 15%; }
+
+.users-table th:nth-child(5),
+.users-table td:nth-child(5) { width: 20%; }
+
+/* Header alignment */
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-badge {
+  background: #ffe3b3;
+  color: #b36b00;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+  
