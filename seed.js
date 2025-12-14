@@ -1,9 +1,7 @@
 const { Cake } = require('./models');
-const user = await User.findOne({ where: { username: 'mai' } });
-user.isAdmin = true;
-await user.save();
 
 module.exports = async function seed() {
+
 
   // ✅ Regular cakes
   const cakes = [
@@ -160,3 +158,4 @@ Cream butter+sugar, add eggs, fold flour, bake 18-20 min at 175°C.`
   // ✅ Insert all cakes
   await Cake.bulkCreate([...cakes, ...seasonal]);
 };
+
