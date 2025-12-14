@@ -10,6 +10,9 @@ body {
     background: #fff6fd;
     color: #444;
     transition: 0.3s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 body.dark {
@@ -26,6 +29,7 @@ body.dark {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
 /* ---------- NAVBAR ---------- */
 .navbar {
     background: white;
@@ -100,8 +104,8 @@ body.dark .dropdown-menu {
 .theme-toggle:hover {
     transform: scale(1.1);
 }
-/* ---------- NAVBAR AUTH BUTTONS ---------- */
 
+/* ---------- NAVBAR AUTH BUTTONS ---------- */
 .link-btn {
     padding: 8px 18px;
     background: #ff7bbb;
@@ -117,7 +121,6 @@ body.dark .dropdown-menu {
     transform: translateY(-2px);
 }
 
-/* Dark mode support */
 body.dark .link-btn {
     background: #ff5ca3;
 }
@@ -125,6 +128,27 @@ body.dark .link-btn {
 body.dark .link-btn:hover {
     background: #ff7bbb;
 }
+
+/* ---------- NAVBAR RESPONSIVE FIX ---------- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 26px;
+    }
+}
+
 /* ---------- HERO SECTION ---------- */
 .hero {
     position: relative;
@@ -137,7 +161,6 @@ body.dark .link-btn:hover {
     background: url("video.mp4") center/cover;
 }
 
-/* Optional video background */
 .hero-video {
     position: absolute;
     top: 50%;
@@ -189,6 +212,26 @@ body.dark .link-btn:hover {
 .hero-btn:hover {
     background: #ff5ca3;
     transform: translateY(-3px);
+}
+
+/* ---------- HERO RESPONSIVE FIX ---------- */
+@media (max-width: 768px) {
+    .hero {
+        height: 60vh;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .hero-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
 }
 /* ---------- CAKES SECTION ---------- */
 .cakes-section {
@@ -267,13 +310,13 @@ body.dark .cake-card {
     background: #ffb1d9;
     transform: scale(1.05);
 }
-/* ---------- CART PAGE LAYOUT ---------- */
 
+/* ---------- CART PAGE LAYOUT ---------- */
 .cart-page {
     display: flex;
     justify-content: center;
     padding: 50px 20px;
-    min-height: calc(100vh - 200px); /* keeps footer at bottom */
+    min-height: calc(100vh - 200px);
 }
 
 .cart-container {
@@ -307,7 +350,6 @@ body.dark .cake-card {
 }
 
 /* ---------- CART TABLE ---------- */
-
 .cart-table {
     width: 100%;
     border-collapse: collapse;
@@ -361,7 +403,6 @@ body.dark .cake-card {
 }
 
 /* ---------- CART SUMMARY ---------- */
-
 .cart-summary {
     display: flex;
     justify-content: space-between;
@@ -381,7 +422,7 @@ body.dark .cake-card {
     font-size: 16px;
 }
 
-/* Responsive */
+/* CART RESPONSIVE FIX */
 @media (max-width: 600px) {
     .cart-summary {
         flex-direction: column;
@@ -391,7 +432,15 @@ body.dark .cake-card {
     .qty-input {
         width: 55px;
     }
-}/* ---------- FOOTER ---------- */
+
+    .cart-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* ---------- FOOTER ---------- */
 .footer {
     text-align: center;
     padding: 30px;
@@ -413,11 +462,6 @@ body.dark .footer {
     margin-top: 10px;
     color: #777;
 }
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
 
 footer {
     margin-top: auto;
@@ -428,7 +472,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 20px;
+    padding: 80px 20px; /* kept second version */
+    flex-direction: column;
 }
 
 .auth-card {
@@ -524,6 +569,7 @@ body.dark .auth-form input {
 .auth-switch a:hover {
     text-decoration: underline;
 }
+
 /* ---------- AUTH PAGE TITLE ---------- */
 .auth-title {
     text-align: center;
@@ -536,254 +582,114 @@ body.dark .auth-form input {
     letter-spacing: 1px;
 }
 
-/* Adjust section to allow title above card */
-.auth-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 80px 20px;
-}
-/* ---------- DETAIL PAGE ---------- */
-
-.detail-section {
-    padding: 60px 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.detail-card {
-    display: flex;
-    gap: 30px;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(255, 120, 160, 0.25);
-    max-width: 1000px;
-    width: 100%;
-    animation: fadeIn 0.8s ease;
-    flex-wrap: wrap;
-}
-
-.detail-card img {
-    width: 350px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-
-.detail-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.detail-content h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #ff5ca3;
-    margin-bottom: 10px;
-}
-
-.price {
-    font-size: 22px;
-    font-weight: 700;
-    color: #ff7bbb;
-    margin-bottom: 15px;
-}
-
-.detail-content p {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    color: #444;
-}
-
-.detail-content h4 {
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    color: #ff5ca3;
-}
-
-.recipe {
-    background: #fff6fd;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #ffd3ea;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    margin-top: 10px;
-    color: #333;
-}
-
-/* ---------- DETAIL ACTIONS ---------- */
-
-.detail-actions {
-    margin-top: 25px;
-    display: flex;
-    gap: 15px;
-}
-
-.add-cart {
-    flex: 1;
-    background: #ff7bbb;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.add-cart:hover {
-    background: #ff5ca3;
-    transform: translateY(-2px);
-}
-
-.hero-btn.tiny {
-    flex: 1;
-    text-align: center;
-    background: #cce5ff;
-    color: #333;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    transition: 0.3s ease;
-}
-
-.hero-btn.tiny:hover {
-    background: #a6d0ff;
-    transform: translateY(-2px);
-}
-
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-    .detail-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+/* ---------- AUTH RESPONSIVE FIX ---------- */
+@media (max-width: 600px) {
+    .auth-card {
+        padding: 25px 20px;
     }
 
-    .detail-card img {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
+    .auth-title {
+        font-size: 32px;
     }
-
-    .detail-actions {
-        flex-direction: column;
     }
-
-    .add-cart,
-    .hero-btn.tiny {
-        width: 100%;
-    }
-}
 /* ---------- CHECKOUT PAGE ---------- */
 
 .checkout-section {
     padding: 60px 20px;
     display: flex;
     justify-content: center;
-  }
-  
-  .checkout-container {
+}
+
+.checkout-container {
     max-width: 1000px;
     width: 100%;
-  }
-  
-  .checkout-title {
+}
+
+.checkout-title {
     font-size: 32px;
     font-weight: 700;
     color: #ff5ca3;
     text-align: center;
     margin-bottom: 5px;
-  }
-  
-  .checkout-subtitle {
+}
+
+.checkout-subtitle {
     text-align: center;
     color: #666;
     margin-bottom: 40px;
-  }
-  
-  /* GRID LAYOUT */
-  .checkout-grid {
+}
+
+/* GRID LAYOUT */
+.checkout-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-  }
-  
-  /* BOXES */
-  .checkout-box {
+}
+
+/* BOXES */
+.checkout-box {
     background: #fff0fa;
     padding: 25px;
     border-radius: 18px;
     box-shadow: 0 8px 25px rgba(255, 120, 160, 0.2);
-  }
-  
-  .checkout-box h3 {
+}
+
+.checkout-box h3 {
     margin-bottom: 15px;
     color: #ff5ca3;
-  }
-  
-  /* ORDER LIST */
-  .checkout-list {
+}
+
+/* ORDER LIST */
+.checkout-list {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .checkout-item {
+}
+
+.checkout-item {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
     border-bottom: 1px solid #ffd3ea;
-  }
-  
-  .checkout-item:last-child {
+}
+
+.checkout-item:last-child {
     border-bottom: none;
-  }
-  
-  .checkout-item .qty {
+}
+
+.checkout-item .qty {
     color: #777;
     margin-left: 5px;
-  }
-  
-  .checkout-total {
+}
+
+.checkout-total {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     padding-top: 15px;
     border-top: 2px solid #ffb6d9;
     font-size: 18px;
-  }
-  
-  /* FORM */
-  .checkout-form label {
+}
+
+/* FORM */
+.checkout-form label {
     display: block;
     margin-top: 12px;
     font-weight: 600;
     color: #444;
-  }
-  
-  .checkout-form input {
+}
+
+.checkout-form input {
     width: 100%;
     padding: 12px;
     border-radius: 12px;
     border: 1px solid #ffd3ea;
     margin-top: 5px;
     font-size: 15px;
-  }
-  
-  /* BUTTON */
-  .checkout-btn {
+}
+
+/* BUTTON */
+.checkout-btn {
     width: 100%;
     margin-top: 20px;
     background: #ff7bbb;
@@ -795,26 +701,39 @@ body.dark .auth-form input {
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s ease;
-  }
-  
-  .checkout-btn:hover {
+}
+
+.checkout-btn:hover {
     background: #ff5ca3;
     transform: translateY(-2px);
-  }
-  
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
     .checkout-grid {
-      grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     }
-  }
-  .success-section {
+}
+
+@media (max-width: 600px) {
+    .checkout-section {
+        padding: 40px 15px;
+    }
+
+    .checkout-box {
+        padding: 20px;
+    }
+}
+
+/* ---------- SUCCESS PAGE ---------- */
+
+.success-section {
     padding: 80px 20px;
     display: flex;
     justify-content: center;
-  }
-  
-  .success-card {
+}
+
+.success-card {
     background: #fff0fa;
     padding: 40px;
     border-radius: 20px;
@@ -822,21 +741,21 @@ body.dark .auth-form input {
     max-width: 500px;
     width: 100%;
     box-shadow: 0 8px 25px rgba(255, 120, 160, 0.25);
-  }
-  
-  .success-card h2 {
+}
+
+.success-card h2 {
     color: #ff5ca3;
     font-size: 32px;
     margin-bottom: 15px;
-  }
-  
-  .success-card p {
+}
+
+.success-card p {
     color: #555;
     font-size: 18px;
     margin-bottom: 30px;
-  }
-  
-  .home-btn {
+}
+
+.home-btn {
     display: inline-block;
     background: #ff7bbb;
     color: white;
@@ -846,228 +765,185 @@ body.dark .auth-form input {
     font-weight: 600;
     text-decoration: none;
     transition: 0.3s ease;
-  }
-  
-  .home-btn:hover {
+}
+
+.home-btn:hover {
     background: #ff5ca3;
     transform: translateY(-2px);
-  }
-  /* ---------- MY ORDERS PAGE ---------- */
+}
+/* ---------- MY ORDERS PAGE ---------- */
 
 .orders-section {
     padding: 60px 20px;
     max-width: 1000px;
     margin: auto;
-  }
-  
-  .orders-title {
+}
+
+.orders-title {
     text-align: center;
     font-size: 32px;
     color: #ff5ca3;
     margin-bottom: 30px;
-  }
-  
-  .no-orders {
+}
+
+.no-orders {
     text-align: center;
     color: #777;
     font-size: 18px;
-  }
-  
-  /* Grid layout for even spacing */
-  .orders-grid {
+}
+
+/* Grid layout */
+.orders-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 25px;
-  }
-  
-  /* Order card */
-  .order-card {
+}
+
+/* Order card */
+.order-card {
     background: #fff0fa;
     padding: 25px;
     border-radius: 18px;
     box-shadow: 0 8px 25px rgba(255, 120, 160, 0.2);
-  }
-  
-  /* Header */
-  .order-header {
+}
+
+/* Header */
+.order-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-  }
-  
-  .order-header h3 {
+}
+
+.order-header h3 {
     color: #ff5ca3;
     margin: 0;
-  }
-  
-  .order-date {
+}
+
+.order-date {
     color: #777;
     font-size: 14px;
-  }
-  
-  /* Items list */
-  .order-items {
+}
+
+/* Items list */
+.order-items {
     list-style: none;
     padding: 0;
     margin: 0 0 15px 0;
-  }
-  
-  .order-item {
+}
+
+.order-item {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
     border-bottom: 1px solid #ffd3ea;
-  }
-  
-  .order-item:last-child {
+}
+
+.order-item:last-child {
     border-bottom: none;
-  }
-  
-  .item-info {
+}
+
+.item-info {
     display: flex;
     gap: 8px;
-  }
-  
-  .qty {
+}
+
+.qty {
     color: #777;
-  }
-  
-  .price {
+}
+
+.price {
     font-weight: 600;
-  }
-  
-  /* Total */
-  .order-total {
+}
+
+/* Total */
+.order-total {
     display: flex;
     justify-content: space-between;
     padding-top: 15px;
     border-top: 2px solid #ffb6d9;
     font-size: 18px;
-  }
-  
-  /* Responsive */
-  @media (min-width: 768px) {
-    .orders-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  .order-info {
+}
+
+/* Order info box */
+.order-info {
     background: #ffe6f3;
     padding: 12px 15px;
     border-radius: 12px;
     margin-bottom: 15px;
     border: 1px solid #ffb6d9;
-  }
-  
-  .order-info p {
+}
+
+.order-info p {
     margin: 4px 0;
     color: #444;
     font-size: 15px;
-  }
-  .admin-section {
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .orders-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+/* ---------- ADMIN SECTION ---------- */
+
+.admin-section {
     padding: 60px 20px;
     max-width: 1000px;
     margin: auto;
-  }
-  
-  .admin-title {
+}
+
+.admin-title {
     text-align: center;
     font-size: 32px;
     color: #ff5ca3;
     margin-bottom: 30px;
-  }
-  
-  .admin-grid {
+}
+
+.admin-grid {
     display: flex;
     gap: 20px;
     justify-content: center;
-  }
-  
-  .admin-card {
-    background: #fff0fa;
-    padding: 25px;
-    border-radius: 18px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(255, 120, 160, 0.2);
-    text-decoration: none;
-    color: #444;
-  }
-  
-  .admin-card:hover {
-    background: #ffe1f4;
-  }
-  
-  .admin-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .admin-table th,
-  .admin-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ffd3ea;
-  }
-  
-  .admin-btn {
-    background: #ff7bbb;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .edit-btn {
-    color: #ff5ca3;
-    margin-right: 10px;
-  }
-  
-  .delete-btn {
-    background: #ff5ca3;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-  }
-  /* --- Admin Page Layout --- */
-.admin-container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px;
 }
 
-/* --- Admin Cards (Add/Edit Cake) --- */
 .admin-card {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 30px;
+    background: #ffffff; /* kept second version */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    width: 250px;
+    text-align: center;
+    text-decoration: none;
+    color: #444;
+}
+
+.admin-card:hover {
+    background: #ffe1f4;
 }
 
 .admin-card h1,
 .admin-card h2 {
-  margin-bottom: 20px;
-  font-weight: 700;
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
 /* --- Form Inputs --- */
 .admin-card input,
 .admin-card textarea,
 .admin-card select {
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 100%;
 }
 
 .admin-card input:focus,
 .admin-card textarea:focus {
-  border-color: #ff7b7b;
-  outline: none;
-  box-shadow: 0 0 4px rgba(255, 123, 123, 0.4);
+    border-color: #ff7b7b;
+    outline: none;
+    box-shadow: 0 0 4px rgba(255, 123, 123, 0.4);
 }
 
 /* --- Buttons --- */
@@ -1075,11 +951,11 @@ body.dark .auth-form input {
 .btn-success,
 .btn-warning,
 .btn-danger {
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .btn-primary { background: #ff7b7b; color: #fff; }
@@ -1091,233 +967,152 @@ body.dark .auth-form input {
 .btn-success:hover,
 .btn-warning:hover,
 .btn-danger:hover {
-  opacity: 0.9;
+    opacity: 0.9;
 }
 
-/* --- Admin Tables --- */
+/* --- Admin Container (keep second version) --- */
+.admin-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* --- Admin Tables (keep second version) --- */
 .admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
 }
 
 .admin-table th,
 .admin-table td {
-  padding: 14px 12px;
-  border-bottom: 1px solid #eee;
+    padding: 14px 12px;
+    border-bottom: 1px solid #eee;
 }
 
 .admin-table th {
-  background: #fff4f4;
-  font-weight: 600;
+    background: #fff4f4;
+    font-weight: 600;
 }
 
 .admin-table tr:hover {
-  background: #fff9f9;
+    background: #fff9f9;
 }
 
-/* --- Order Detail Card --- */
+/* --- Order Detail Card (keep second version) --- */
 .order-detail-card {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 40px;
-}
-
-/* --- Footer Sticks to Bottom --- */
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-}
-/* --- Centered Form Wrapper --- */
-.center-form {
-  display: flex;
-  justify-content: center;
-}
-
-/* --- Wider Card for Edit Cake --- */
-.wide-card {
-  width: 700px;
-  max-width: 90%;
-}
-
-/* --- Order Detail Card Styling --- */
-.order-detail-card {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-  margin-bottom: 40px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
 }
 
 .order-detail-card h1,
 .order-detail-card h3 {
-  font-weight: 700;
-  margin-bottom: 15px;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
 .order-detail-card p {
-  margin: 4px 0;
+    margin: 4px 0;
 }
 
-/* --- Admin Table Improvements --- */
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+/* --- Centered Form Wrapper --- */
+.center-form {
+    display: flex;
+    justify-content: center;
 }
 
-.admin-table th,
-.admin-table td {
-  padding: 14px 12px;
-  border-bottom: 1px solid #eee;
+/* --- Wider Card for Edit Cake --- */
+.wide-card {
+    width: 700px;
+    max-width: 90%;
 }
 
-.admin-table th {
-  background: #fff4f4;
-  font-weight: 600;
-}
-
-.admin-table tr:hover {
-  background: #fff9f9;
-}
-
-/* --- Footer stays at bottom --- */
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-}
 /* --- Manage Orders Table Alignment --- */
 .orders-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  table-layout: fixed; /* makes columns even */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
 }
 
 .orders-table th,
 .orders-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 14px 10px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 14px 10px;
 }
 
 .orders-table th {
-  background: #fff4f4;
-  font-weight: 600;
+    background: #fff4f4;
+    font-weight: 600;
 }
 
 .orders-table td {
-  background: #ffffff;
+    background: #ffffff;
 }
 
 .orders-table tr:hover td {
-  background: #fff9f9;
+    background: #fff9f9;
 }
 
-/* Make columns evenly spaced */
+/* Column widths */
 .orders-table th:nth-child(1),
-.orders-table td:nth-child(1) {
-  width: 10%;
-}
+.orders-table td:nth-child(1) { width: 10%; }
 
 .orders-table th:nth-child(2),
-.orders-table td:nth-child(2) {
-  width: 30%;
-}
+.orders-table td:nth-child(2) { width: 30%; }
 
 .orders-table th:nth-child(3),
-.orders-table td:nth-child(3) {
-  width: 20%;
-}
+.orders-table td:nth-child(3) { width: 20%; }
 
 .orders-table th:nth-child(4),
-.orders-table td:nth-child(4) {
-  width: 20%;
-}
+.orders-table td:nth-child(4) { width: 20%; }
 
 .orders-table th:nth-child(5),
-.orders-table td:nth-child(5) {
-  width: 20%;
-}
+.orders-table td:nth-child(5) { width: 20%; }
 
-/* Center the whole admin page */
-.admin-container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px;
-}
+/* --- Manage Header (keep second version) --- */
 .manage-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .add-cake-btn {
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-.order-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
 }
 
-.order-info p {
-  margin: 4px 0;
-}
-
-.order-total {
-  font-size: 1.2rem;
-  font-weight: 700;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-/* Align Manage Cakes table */
+/* --- Manage Cakes Table --- */
 .cakes-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
 }
 
 .cakes-table th,
 .cakes-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 14px 10px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 14px 10px;
 }
 
 .cakes-table th {
-  background: #fff4f4;
-  font-weight: 600;
+    background: #fff4f4;
+    font-weight: 600;
 }
 
 .cakes-table tr:hover td {
-  background: #fff9f9;
+    background: #fff9f9;
 }
 
-/* Even column widths */
+/* Column widths */
 .cakes-table th:nth-child(1),
 .cakes-table td:nth-child(1) { width: 15%; }
 
@@ -1333,43 +1128,31 @@ main {
 .cakes-table th:nth-child(5),
 .cakes-table td:nth-child(5) { width: 30%; }
 
-/* Header alignment */
-.manage-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.add-cake-btn {
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-/* Align Manage Users table */
+/* --- Manage Users Table --- */
 .users-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
 }
 
 .users-table th,
 .users-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 14px 10px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 14px 10px;
 }
 
 .users-table th {
-  background: #fff4f4;
-  font-weight: 600;
+    background: #fff4f4;
+    font-weight: 600;
 }
 
 .users-table tr:hover td {
-  background: #fff9f9;
+    background: #fff9f9;
 }
 
-/* Even column widths */
+/* Column widths */
 .users-table th:nth-child(1),
 .users-table td:nth-child(1) { width: 10%; }
 
@@ -1385,80 +1168,90 @@ main {
 .users-table th:nth-child(5),
 .users-table td:nth-child(5) { width: 20%; }
 
-/* Header alignment */
-.manage-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* Admin badge */
 .admin-badge {
-  background: #ffe3b3;
-  color: #b36b00;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-weight: 600;
+    background: #ffe3b3;
+    color: #b36b00;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
 }
-@media (max-width: 768px) {
-  .navbar {
-      padding: 15px 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-  }
 
-  .nav-links {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      width: 100%;
-  }
-
-  .logo {
-      font-size: 26px;
-  }
-}
+/* --- ADMIN RESPONSIVE FIXES --- */
 @media (max-width: 768px) {
-  .hero-content h1 {
-      font-size: 40px;
-  }
-  .hero-content p {
-      font-size: 16px;
-  }
-  .hero-btn {
-      padding: 10px 20px;
-      font-size: 16px;
-  }
+    .admin-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .admin-table,
+    .orders-table,
+    .cakes-table,
+    .users-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 }
+/* ---------- GLOBAL RESPONSIVE IMPROVEMENTS ---------- */
+
+/* Small screens (phones) */
 @media (max-width: 600px) {
-  .detail-card img {
-      max-width: 90%;
-  }
+
+    /* Reduce global padding for all major sections */
+    .cakes-section,
+    .cart-page,
+    .auth-section,
+    .detail-section,
+    .checkout-section,
+    .orders-section,
+    .admin-section {
+        padding: 40px 15px;
+    }
+
+    /* Footer spacing */
+    .footer {
+        padding: 20px;
+    }
+
+    /* Improve readability on small screens */
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.3rem; }
+    p  { font-size: 0.95rem; }
+
+    /* Make buttons more comfortable on mobile */
+    button,
+    .link-btn,
+    .hero-btn,
+    .auth-btn,
+    .checkout-btn,
+    .home-btn {
+        width: 100%;
+    }
 }
-@media (max-width: 600px) {
-  .checkout-section {
-      padding: 30px 15px;
-  }
+
+/* Tablets (your original breakpoint) */
+@media (max-width: 768px) {
+
+    /* Ensure all tables scroll instead of breaking layout */
+    .admin-table,
+    .orders-table,
+    .cakes-table,
+    .users-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* Admin grid stacks vertically */
+    .admin-grid {
+        flex-direction: column;
+        align-items: center;
+    }
 }
-.admin-table,
-.orders-table,
-.cakes-table,
-.users-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-}
-@media (max-width: 600px) {
-  section, .auth-section, .orders-section, .checkout-section {
-      padding: 40px 15px;
-  }
-}
-@media (max-width: 600px) {
-  .footer {
-      padding: 20px;
-  }
-}
-@media (max-width: 600px) {
-  button, .link-btn, .hero-btn {
-      width: 100%;
-  }
-}
-  
