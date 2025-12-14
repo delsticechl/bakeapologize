@@ -15,8 +15,8 @@ const CartItem = require('./cartItem')(sequelize, DataTypes);
 const Recipe = require('./recipe')(sequelize, DataTypes);   // ✅ NEW
 
 // ✅ NEW: Load Order + OrderItem
-const Order = require('./order')(sequelize, DataTypes);
-const OrderItem = require('./orderItem')(sequelize, DataTypes);
+const Order = require('./Order')(sequelize, DataTypes);
+const OrderItem = require('./OrderItem')(sequelize, DataTypes);
 
 // --------------------
 // Associations
